@@ -12,13 +12,13 @@ echo
 
 # ---------- go through PKGBUILD diff of each AUR package that has an update
 
-updates_available=0
+updates_available=false
 
 mapfile -t aur_updates < <(yay -Qua | awk '{print $1}')
 
 for pkg in "${aur_updates[@]}"; do
 
-    updates_available=1
+    updates_available=true
     
     echo
     read -rp "Update available for $pkg. Press enter to see the PKGBUILD diff "
@@ -32,7 +32,7 @@ for pkg in "${aur_updates[@]}"; do
     rm -rf "$tmpdir"
 done
 
-if [[ $updates_available == 1 ]]; then
+if $updates_available; then
     echo
     read -rp "are all AUR packages safe to update? (If not then this script will terminate before updating anything) [y/n] " answer
     [[ "$answer" == "y" ]] || exit 0
