@@ -25,8 +25,9 @@ for pkg in "${aur_updates[@]}"; do
 done
 
 if [[ $updates_available == 1 ]]; then
+    echo
     read -rp "are all AUR packages safe to update? (If not then this script will terminate before updating anything) [y/n] " answer
-    [[ "$answer" == "y" ]] || exit 1
+    [[ "$answer" == "y" ]] || exit 0
 fi
 
 # ----------
