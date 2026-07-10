@@ -88,20 +88,6 @@ echo "finished cleaning unused yay caches"
 echo "-----------------------------------"
 echo
 
-# reinstall all flatpak apps as removing orphaned packages can mess up flatpak stuff sometimes
-flatpak_apps=$(flatpak list --app --columns=application)
-if [ -n "$flatpak_apps" ]; then
-    for app in $flatpak_apps; do
-        flatpak install --reinstall -y "$app"
-    done
-fi
-
-echo
-echo "-----------------------------------------------------------------"
-echo "finished reinstalling flatpak packages to avoid dependency issues"
-echo "-----------------------------------------------------------------"
-echo
-
 sudo journalctl --vacuum-time=10d # remove logs older than 10 days
 
 echo
