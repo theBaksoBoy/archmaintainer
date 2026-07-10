@@ -92,7 +92,7 @@ echo
 flatpak_apps=$(flatpak list --app --columns=application)
 if [ -n "$flatpak_apps" ]; then
     for app in $flatpak_apps; do
-        run_command "flatpak install --reinstall -y $app"
+        flatpak install --reinstall -y "$app"
     done
 fi
 
