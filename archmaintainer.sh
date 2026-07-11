@@ -22,7 +22,7 @@ for pkg in "${aur_updates[@]}"; do
     updates_available=true
     
     echo
-    read -rp "Update available for $pkg. Press enter to see the PKGBUILD diff "
+    read -rp "Update available for the AUR package $pkg. Press enter to see the PKGBUILD diff "
 
     tmpdir=$(mktemp -d)
 
