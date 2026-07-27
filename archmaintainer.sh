@@ -108,7 +108,7 @@ echo
 echo "getting rid of unused yay caches, making sure to keep old PKGBUILDs for this script..."
 echo
 
-find ~/.cache/yay -name '*.pkg.tar.*' -delete # clears caches whilst avoiding removing old PKGBUILDs which are used in this script
+sudo find ~/.cache/yay -name '*.pkg.tar.*' -delete # clears caches whilst avoiding removing old PKGBUILDs which are used in this script
 
 echo
 echo "-----------------------------------"
