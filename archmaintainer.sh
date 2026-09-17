@@ -8,7 +8,7 @@ echo
 echo "updating mirrorlist before doing package updates..."
 echo
 
-sudo reflector -c Sweden,Germany,Denmark,Finland -l 30 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --verbose # update mirror list
+sudo reflector -c Sweden -l 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --verbose # update mirror list
 
 echo
 echo "------------------"
