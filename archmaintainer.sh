@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-read -rp "make sure to look at https://archlinux.org/news/ in case anything has broken. Do you want to continue with the updating? [y/n] " answer
+paru -Pww
+read -rp "Do you want to continue updating? [y/n] " answer
 [[ "$answer" == "y" ]] || exit 0
 
 echo
