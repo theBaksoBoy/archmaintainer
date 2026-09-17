@@ -4,7 +4,7 @@ A simple bash script for keeping my Arch system up to date and in a good state. 
 I think flatpak packages have a chance of breaking after update. If that ever happens then run `flatpak repair`
 
 dependencies:
-- yay
+- paru
 - reflector (`sudo pacman -S reflector`)
 - flatpak (`sudo pacman -S flatpak`)
 - vim (`sudo pacman -S vim`)

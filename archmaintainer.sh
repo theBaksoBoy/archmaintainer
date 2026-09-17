@@ -3,36 +3,6 @@
 read -rp "make sure to look at https://archlinux.org/news/ in case anything has broken. Do you want to continue with the updating? [y/n] " answer
 [[ "$answer" == "y" ]] || exit 0
 
-# ---------- go through PKGBUILD diff of each AUR package that has an update
-
-updates_available=false
-
-mapfile -t aur_updates < <(yay -Qua | awk '{print $1}')
-
-for pkg in "${aur_updates[@]}"; do
-
-    updates_available=true
-    
-    echo
-    read -rp "Update available for the AUR package $pkg. Press enter to see the PKGBUILD diff "
-
-    tmpdir=$(mktemp -d)
-
-    git clone --depth=1 "https://aur.archlinux.org/${pkg}.git" "$tmpdir" >/dev/null
-
-    vimdiff "$HOME/.cache/yay/$pkg/PKGBUILD" "$tmpdir/PKGBUILD"
-
-    rm -rf "$tmpdir"
-done
-
-if $updates_available; then
-    echo
-    read -rp "are all AUR packages safe to update? (If not then this script will terminate before updating anything) [y/n] " answer
-    [[ "$answer" == "y" ]] || exit 0
-fi
-
-# ----------
-
 echo
 echo "updating mirrorlist before doing package updates..."
 echo
@@ -46,14 +16,14 @@ echo "------------------"
 echo
 
 echo
-echo "updating packages with yay..."
+echo "updating packages with paru..."
 echo
 
-yay -Syu --noconfirm # update system
+paru -Syu
 
 echo
 echo "------------------------------------"
-echo "packages finished updating using yay"
+echo "packages finished updating using paru"
 echo "------------------------------------"
 echo
 
@@ -61,7 +31,7 @@ echo
 echo "updating flatpak packages..."
 echo
 
-flatpak update -y # update flatpak
+flatpak update -y
 
 echo
 echo "------------------------"
@@ -82,7 +52,7 @@ if [ -n "$orphans" ]; then
     echo "getting rid of orpahs with pacman..."
     echo
 
-    sudo pacman -Rns $orphans # remove orphaned packages
+    sudo pacman -Rns $orphans
 
     echo
     echo "----------------------"
@@ -95,7 +65,7 @@ echo
 echo "getting rid of old packages and unused cached package versions..."
 echo
 
-sudo paccache -r # only keep the last 3 versions of each package
+sudo paccache -rk2 # only keep the last 2 versions of each package
 sudo paccache -ruk0 # remove cached versions of packages that aren't used
 
 echo
@@ -105,14 +75,16 @@ echo "----------------------------"
 echo
 
 echo
-echo "getting rid of unused yay caches, making sure to keep old PKGBUILDs for this script..."
+echo "getting rid of unused paru caches..."
 echo
 
-sudo find ~/.cache/yay -name '*.pkg.tar.*' -delete # clears caches whilst avoiding removing old PKGBUILDs which are used in this script
+# doesn't delete the PKBUILD and other such files, as those are used to see diffs
+sudo find ~/.cache/paru/clone -name '*.tar.gz' -delete
+sudo find ~/.cache/paru/clone -name '*.pkg.tar.*' -delete
 
 echo
 echo "-----------------------------------"
-echo "finished cleaning unused yay caches"
+echo "finished cleaning unused paru caches"
 echo "-----------------------------------"
 echo
 
