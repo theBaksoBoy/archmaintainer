@@ -7,5 +7,4 @@ dependencies:
 - paru
 - reflector (`sudo pacman -S reflector`)
 - flatpak (`sudo pacman -S flatpak`)
-- vim (`sudo pacman -S vim`)
 - paccache (`sudo pacman -S pacman-contrib`)
