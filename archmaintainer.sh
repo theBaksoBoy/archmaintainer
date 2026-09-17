@@ -2,7 +2,7 @@
 
 todo_color='\033[0;36m'
 done_color='\033[0;32m'
-clear_color='\033[0m
+clear_color='\033[0m'
 
 
 
