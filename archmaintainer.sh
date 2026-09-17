@@ -81,6 +81,7 @@ echo
 # doesn't delete the PKBUILD and other such files, as those are used to see diffs
 sudo find ~/.cache/paru/clone -name '*.tar.gz' -delete
 sudo find ~/.cache/paru/clone -name '*.pkg.tar.*' -delete
+sudo find ~/.cache/paru/clone -name '*.deb' -delete # Debian files on Arch? Don't see how that makes sense, but an AUR package did do that so idk man
 
 echo
 echo "-----------------------------------"
