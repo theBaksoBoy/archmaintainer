@@ -5,10 +5,10 @@ read -rp "Do you want to continue updating? [y/n] " answer
 [[ "$answer" == "y" ]] || exit 0
 
 echo
-echo "updating mirrorlist before doing package updates..."
+echo "updating mirrorlist..."
 echo
 
-sudo reflector -c Sweden -l 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --verbose # update mirror list
+sudo reflector -c Sweden -l 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --verbose
 
 echo
 echo "------------------"
@@ -45,6 +45,12 @@ echo "getting rid of unused flatpak packages..."
 echo
 
 flatpak uninstall --unused -y # get rid of unused flatpak packages
+
+echo
+echo "-----------------------"
+echo "flatpak orphans removed"
+echo "-----------------------"
+echo
 
 orphans=$(pacman -Qdtq)
 if [ -n "$orphans" ]; then
